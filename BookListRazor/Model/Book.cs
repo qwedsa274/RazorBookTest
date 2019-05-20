@@ -15,8 +15,12 @@ namespace BookListRazor.Model
         [Display(Name = "Book Name")]
         public string Name { get; set; }
 
+        [Required]
+        [Display(Name = "Book ISBN")]
         public string ISBN { get; set; }
 
+        [Required]
+        [Display(Name = "Book Author")]
         public string Author { get; set; }
 
     }
