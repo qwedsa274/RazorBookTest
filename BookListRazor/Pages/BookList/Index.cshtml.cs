@@ -20,9 +20,25 @@ namespace BookListRazor.Pages.BookList
 
         public IEnumerable<Book> Books { get; set; }
 
+        [TempData]
+        public string Message { get; set; }
+
         public async Task OnGet()
         {
             Books = await _db.Book.ToListAsync();
+        }
+
+        public async Task<IActionResult> OnPostDelete(int ID)
+        {
+            var book = await _db.Book.FindAsync(ID);
+            if (book == null)
+            {
+                return NotFound();
+            }
+            _db.Book.Remove(book);
+            await _db.SaveChangesAsync();
+            Message = "Book delete successfully !";
+            return RedirectToPage("Index");
         }
     }
 }
